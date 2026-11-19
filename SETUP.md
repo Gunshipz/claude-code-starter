@@ -36,6 +36,10 @@ Download them byte for byte (`curl.exe -fsSL <url> -o <path>`, or PowerShell
    may be hidden: tell them to click the flashing shield icon on the taskbar, then **Yes**.
    If you hit the Pro usage limit, tell them when it resets and that they can type
    **continue setup** after that; the checklist keeps your place.
+   Whenever you need them to do something, end your message with a question ("Tell me when
+   you've clicked Yes?") so it's clear it's their turn. A setup guard (A2) keeps you working
+   whenever you stop with boxes unticked, unless your message ends with a question or tells
+   them to restart.
 7. **Don't give up on a failure.** Find out why, try a different way, and only stop for
    something only they can do. If one step can't be finished after three different
    attempts, note it in the checklist with what you tried, move on, and include it in the
@@ -75,7 +79,21 @@ existing keys; write valid JSON as UTF-8 **without** a BOM):
 Tell them: auto mode means you work without stopping to ask at every step, while a safety
 checker reviews each action. Sonnet is the everyday model and goes easier on their Pro
 allowance; they can type `/model` any time to switch to Opus for a hard job.
-Check: parse the file with `ConvertFrom-Json` and print both keys.
+Then download `hooks/setup-guard.ps1` to `%USERPROFILE%\.claude\hooks\setup-guard.ps1` and add
+this Stop hook to settings.json (`<HOME>` = their home folder in forward slashes). It's
+PowerShell, so it works before Node.js is installed, and it takes effect from the next
+restart. It keeps you going while `setup-progress.md` has unticked boxes:
+```json
+{
+  "hooks": {
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"<HOME>/.claude/hooks/setup-guard.ps1\"", "timeout": 20 } ] }
+    ]
+  }
+}
+```
+Check: parse the file with `ConvertFrom-Json` and print `permissions.defaultMode`, `model`
+and the Stop hook command.
 
 ### A3. Apps
 Check winget first (`winget --version`). If it's missing, try
@@ -201,7 +219,8 @@ Stop here and wait.
 ### B1. Recheck, then switch on the ribbon and the hook
 Confirm `claude` now starts by name (`where.exe claude`), then rerun the A3 version checks
 without the PATH refresh. Anything still failing gets fixed now.
-Then merge the `statusLine`, `subagentStatusLine` and `hooks` settings from A4 into settings.json, parse it with
+Then merge the `statusLine`, `subagentStatusLine` and `hooks` settings from A4 into settings.json
+(add the diy-guard entry to the existing `Stop` list; keep the setup-guard entry), parse it with
 `ConvertFrom-Json` to prove it's valid, and tell them the ribbon and the guard switch on at
 the next restart.
 
@@ -286,12 +305,18 @@ lets you do. Open https://claude.ai/customize/connectors in Chrome and walk them
 of the three: find it, click **Connect**, sign in to Google and click **Allow**. Signing in to
 Google is theirs. These load after the next restart; you'll check them in C1.
 
-### B7. Handy (talk instead of type)
-Install Handy, a free speech-to-text app that types whatever they say:
-`winget install -e --id cjpais.Handy` (same flags as A3). Set it to start when they log in,
-launch it, and tell them its keyboard shortcut. If Windows asks for microphone access, tell
-them to click **Yes**. Have them try it by holding the shortcut and saying "What's in my
-Documents folder?" to you.
+### B7. Handy and herdr
+1. **Handy**, a free speech-to-text app that types whatever they say:
+   `winget install -e --id cjpais.Handy` (same flags as A3). Set it to start when they log in,
+   launch it, and tell them its keyboard shortcut. If Windows asks for microphone access, tell
+   them to click **Yes**. Have them try it by holding the shortcut and saying "What's in my
+   Documents folder?" to you.
+2. **herdr**, a free app for running several Claude sessions side by side
+   (https://herdr.dev). Install it with its official installer:
+   `powershell -c "irm https://releases.herdr.dev/app/install.ps1 | iex"`. Check that it
+   launches, read herdr's own docs for how to split panes on Windows, and tell them in two
+   plain sentences when they'd use it (two jobs at once) and how to open it. Don't start
+   extra Claude sessions during setup.
 
 ### B8. About Me
 Interview them for `About Me.md` in the vault, replacing the placeholder line you wrote in A5. One question at a time, about eight in all,
@@ -333,7 +358,9 @@ search the vault for "About Me" and quote one line from it back to them. This pr
 write and read the vault.
 
 ### C5. Finish
-1. Remove the `SETUP IN PROGRESS` line from the top of `%USERPROFILE%\.claude\CLAUDE.md`.
+1. Remove the `SETUP IN PROGRESS` line from the top of `%USERPROFILE%\.claude\CLAUDE.md`,
+   remove the setup-guard entry from the `Stop` hooks in settings.json (keep diy-guard), and
+   delete `%USERPROFILE%\.claude\setup-guard-state.json`.
 2. Mark `setup-progress.md` complete.
 3. Save a short setup report to the vault as `Claude/Setup Report.md`: what's installed,
    anything that didn't work and what you tried, and where things live. Open it in Obsidian.

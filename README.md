@@ -16,5 +16,6 @@ Download https://raw.githubusercontent.com/Gunshipz/claude-code-starter/main/SET
 | `subagent-statusline.js` | Feeds the ribbon's running-agents counter |
 | `hooks/diy-guard.mjs` | Stop hook that blocks Claude from handing the user work it could do itself. `node hooks/diy-guard.test.mjs` runs 45 cases |
 | `hooks/diy-reminder.mjs` | Restates that rule on every prompt so the block rarely fires |
+| `hooks/setup-guard.ps1` | Stop hook used only during setup: keeps Claude working while the setup checklist has unticked boxes, lets it stop for questions and restarts, gives up after 3 stops with no progress. `powershell -File hooks/setup-guard.test.ps1` runs 10 cases |
 
 MIT licensed.
