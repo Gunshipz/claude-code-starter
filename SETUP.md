@@ -279,12 +279,12 @@ Open https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcd
 Chrome for them. Tell them to click **Add to Chrome**, pin it with the puzzle-piece icon, and
 sign in with the same Claude account they use here.
 
-### B6. Google connectors (their choice)
-Ask whether they'd like you connected to their **Gmail**, **Google Calendar** and **Google
-Drive** (for example, reading the kids' schedules, planning carpools, filing email). If yes,
-open https://claude.ai/customize/connectors in Chrome and tell them, for each one: find it,
-click **Connect**, sign in to Google and click **Allow**. Signing in to Google is theirs.
-These load after the next restart; you'll check them in C1.
+### B6. Google connectors
+Connect yourself to their **Gmail**, **Google Calendar** and **Google Drive**, so you can read
+schedules, plan around them, find files and draft email. Tell them in one sentence what this
+lets you do. Open https://claude.ai/customize/connectors in Chrome and walk them through each
+of the three: find it, click **Connect**, sign in to Google and click **Allow**. Signing in to
+Google is theirs. These load after the next restart; you'll check them in C1.
 
 ### B7. Handy (talk instead of type)
 Install Handy, a free speech-to-text app that types whatever they say:
@@ -314,8 +314,7 @@ Stop here and wait.
 
 ### C1. Turn on Chrome and check the helpers
 Tell them to type `/chrome` and choose **Enabled by default**, then type `/mcp` and look for
-**playwright** in the list, plus Gmail, Google Calendar and Google Drive if they connected
-them in B6. Ask them what they see.
+**playwright**, Gmail, Google Calendar and Google Drive in the list. Ask them what they see.
 
 ### C2. Check the ribbon and the mode
 Ask them whether they see a line at the bottom showing the model, `ctx`, `5h-limit` and
@@ -323,11 +322,10 @@ Ask them whether they see a line at the bottom showing the model, `ctx`, `5h-lim
 stay blank until after your first reply in a session; that's normal. If the ribbon or auto
 mode is missing, fix it.
 
-### C3. Learn their writing voice (their choice)
-If they connected Gmail, offer to run `/byline:byline setup`: it reads about 4,000 words of
-their own sent email to learn how they write, shows them the profile before saving it, and
-keeps it only on their PC (`~/.byline/`). If they say no, skip it; byline offers again the
-first time they ask you to write a message.
+### C3. Learn their writing voice
+Run `/byline:byline setup`. It reads about 4,000 words of their own sent email through the
+Gmail connector to learn how they write, shows them the profile before saving it, and keeps
+it only on their PC (`~/.byline/`). Tell them that in one sentence before it starts.
 
 ### C4. Test the second brain
 Add a line to `Inbox.md` in the vault saying setup finished today, then
