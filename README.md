@@ -2,10 +2,10 @@
 
 A starter kit for Claude Code on Windows, built so Claude does the setup itself.
 
-After installing Claude Code from Command Prompt and signing in, paste this into Claude:
+After installing Claude Code from Command Prompt and signing in, paste this into Claude. After each restart, type `continue setup`; the setup guard keeps it going.
 
 ```
-Download https://raw.githubusercontent.com/Gunshipz/claude-code-starter/main/SETUP.md with curl.exe and read all of it, then follow it to set up my computer. Do every step yourself.
+/goal Download https://raw.githubusercontent.com/Gunshipz/claude-code-starter/main/SETUP.md with curl.exe, read all of it, and follow it to set up my computer, doing every step yourself. Done when every Part A box in the setup checklist is ticked and you've told me to restart.
 ```
 
 | File | What it is |
