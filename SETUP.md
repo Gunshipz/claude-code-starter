@@ -14,7 +14,9 @@ never by summarising a web page, so every character arrives intact.
 1. **Before anything else, tell them in two sentences what's about to happen:** you'll set up
    their computer, it takes about 30 to 45 minutes, they'll need to click "Yes" on a few
    Windows pop-ups, and you'll ask them to restart the terminal twice.
-2. **Keep a checklist.** Create `%USERPROFILE%\.claude\setup-progress.md` with every numbered
+2. **Keep a local copy and a checklist.** Save this file to
+   `%USERPROFILE%\.claude\setup\SETUP.md` (skip if it's already there) and resume from that
+   copy from now on. Create `%USERPROFILE%\.claude\setup-progress.md` with every numbered
    step below as an unchecked box. Tick each box as soon as that step is checked and working.
    If the file already exists, you're resuming: read it, tell them where you're picking up,
    and continue from the first unticked box. Don't redo ticked steps.
@@ -74,7 +76,7 @@ It can't be tested until Node.js is installed (A5); test it there.
 Download `CLAUDE-starter.md`. If `%USERPROFILE%\.claude\CLAUDE.md` doesn't exist, save it
 there. If it exists, add the starter's sections to the end without removing anything.
 Then add this line at the very top of the file:
-`SETUP IN PROGRESS: if %USERPROFILE%\.claude\setup-progress.md has unticked boxes and I say "continue setup", download https://raw.githubusercontent.com/Gunshipz/claude-code-starter/main/SETUP.md and continue from the first unticked box.`
+`SETUP IN PROGRESS: if %USERPROFILE%\.claude\setup-progress.md has unticked boxes and I say "continue setup", read %USERPROFILE%\.claude\setup\SETUP.md and continue from the first unticked box.`
 Summarise the 15 house rules for them in five plain lines, and tell them the full list is
 in `%USERPROFILE%\.claude\CLAUDE.md`.
 
