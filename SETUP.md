@@ -43,7 +43,11 @@ Download them byte for byte (`curl.exe -fsSL <url> -o <path>`, or PowerShell
    or call the program by its full path.
 8. **Check before you tick.** A step is done only when you've run something that would have
    failed if it weren't.
-9. **Paths in settings.json** are absolute with forward slashes, for example
+9. **Which shell.** The PowerShell snippets in this file (`$env:Path`, `[Environment]`,
+   `ConvertFrom-Json`) must run in PowerShell: use your PowerShell tool, or wrap them in
+   `powershell.exe -NoProfile -Command "..."` from Bash. Run `claude mcp add` (B2) from
+   PowerShell too, because Git Bash rewrites `/c` into a drive path.
+10. **Paths in settings.json** are absolute with forward slashes, for example
    `C:/Users/Name/.claude/statusline.js`. Don't rely on `$HOME` or `%USERPROFILE%` there.
 
 ---
@@ -140,20 +144,9 @@ Checks:
   Also pipe `{}` and confirm it doesn't crash.
 - Run `diy-guard.test.mjs` and confirm it ends with `ALL PASS`.
 
-### A5. House rules
-Download `CLAUDE-starter.md`. Replace `SECOND_BRAIN_PATH` with the vault path from A6
-(`<Documents>\Second Brain`, where `<Documents>` is
-`[Environment]::GetFolderPath('MyDocuments')`, which may be inside OneDrive). If
-`%USERPROFILE%\.claude\CLAUDE.md` doesn't exist, save it there. If it exists, add the starter's
-sections to the end without removing anything. Then add this line at the very top:
-
-`SETUP IN PROGRESS: if %USERPROFILE%\.claude\setup-progress.md has unticked boxes and I say "continue setup", read %USERPROFILE%\.claude\setup\SETUP.md and continue from the first unticked box.`
-
-Summarise the house rules for them in five plain lines, and tell them the full list is in
-`%USERPROFILE%\.claude\CLAUDE.md`.
-
-### A6. Second brain (Obsidian vault)
-1. Create the vault folder `<Documents>\Second Brain` with these folders:
+### A5. Second brain (Obsidian vault)
+1. Create the vault folder `<Documents>\Second Brain`, where `<Documents>` is
+   `[Environment]::GetFolderPath('MyDocuments')` (it may be inside OneDrive), with these folders:
    `Family`, `Home`, `Work`, `Crafts`, `Recipes`, `Trips`, `Health`, `People`, `Claude`.
 2. Create these notes:
    - `Start Here.md`: a short plain-English explanation that this is their second brain,
@@ -172,6 +165,17 @@ Summarise the house rules for them in five plain lines, and tell them the full l
    **Open folder as vault** and pick `Documents\Second Brain`. If it asks about trusting the
    vault, click **Trust**. Ask them whether they can see `Start Here` in the left sidebar.
 5. Check: list the vault folder and print `obsidian.json`.
+
+### A6. House rules
+Download `CLAUDE-starter.md`. Replace `SECOND_BRAIN_PATH` with the vault path from A5
+(`<Documents>\Second Brain`). If
+`%USERPROFILE%\.claude\CLAUDE.md` doesn't exist, save it there. If it exists, add the starter's
+sections to the end without removing anything. Then add this line at the very top:
+
+`SETUP IN PROGRESS: if %USERPROFILE%\.claude\setup-progress.md has unticked boxes and I say "continue setup", read %USERPROFILE%\.claude\setup\SETUP.md and continue from the first unticked box.`
+
+Summarise the house rules for them in five plain lines, and tell them the full list is in
+`%USERPROFILE%\.claude\CLAUDE.md`.
 
 ### A7. First restart
 Tick the Part A boxes. Then tell them, exactly:
@@ -215,13 +219,16 @@ theme-factory, frontend-design, pdf, xlsx, docx, pptx, skill-creator.
 ### B4. Craft studio
 This person makes crafts.
 1. `winget install` (same flags as A3): `Inkscape.Inkscape`, `ImageMagick.ImageMagick`, `GIMP.GIMP.3`.
-2. `py -3.13 -m pip install --user pillow cairosvg opencv-python openpyxl`.
+2. `py -3.13 -m pip install --user pillow opencv-python openpyxl`. For SVG to PNG, use
+   Inkscape's command line (`inkscape file.svg --export-type=png`), not cairosvg, which needs
+   libraries Windows doesn't have.
 3. Real-ESRGAN for enlarging small images for print: download the latest
    `realesrgan-ncnn-vulkan` Windows zip from https://github.com/xinntao/Real-ESRGAN/releases,
    unzip it to `%USERPROFILE%\Tools\realesrgan`, and test it on a small image. It uses their
    NVIDIA graphics card; if the card isn't detected, say so plainly and carry on.
 4. Make `<Documents>\Craft Studio` for design files.
-5. Use the skill-creator skill to write a personal skill called **craft-prep** in
+5. Write a personal skill called **craft-prep** (plugins from B3 load only after a restart, so
+   write it directly: a `SKILL.md` with `name` and `description` frontmatter, then the steps) in
    `%USERPROFILE%\.claude\skills\craft-prep\SKILL.md`, used whenever they ask for a craft
    design. It covers:
    - Sublimation: 300 DPI at final print size, mirrored before printing, colors that suit
@@ -240,7 +247,7 @@ Chrome for them. Tell them to click **Add to Chrome**, pin it with the puzzle-pi
 sign in with the same Claude account they use here.
 
 ### B6. About Me
-Interview them for `About Me.md` in the vault. One question at a time, about eight in all,
+Interview them for `About Me.md` in the vault, replacing the placeholder line you wrote in A5. One question at a time, about eight in all,
 and tell them they can skip any: what to call them, who's in their household, what they do
 for work, what a normal week looks like, hobbies, what they'd most like help with, short or
 detailed answers, and anything you should never do. Never ask for a street address,
@@ -264,8 +271,9 @@ Tell them to type `/chrome` and choose **Enabled by default**, then type `/mcp` 
 
 ### C2. Check the ribbon and the mode
 Ask them whether they see a line at the bottom showing the model, `ctx`, `5h-limit` and
-`7d-limit`, and whether the line under the input box says **auto mode**. If either is
-missing, fix it.
+`7d-limit`, and whether the line under the input box says **auto mode**. The limit bars can
+stay blank until after your first reply in a session; that's normal. If the ribbon or auto
+mode is missing, fix it.
 
 ### C3. Test the second brain
 Save a note called `First Note.md` in the vault's `Inbox` saying setup finished today, then
