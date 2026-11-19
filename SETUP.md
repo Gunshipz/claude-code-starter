@@ -110,6 +110,7 @@ tell them to turn off the two "App Installer python.exe / python3.exe" switches.
 ### A4. The ribbon and the house-rule hook
 Download into `%USERPROFILE%\.claude\`:
 - `statusline.js` → `.claude\statusline.js`
+- `subagent-statusline.js` → `.claude\subagent-statusline.js` (feeds the ribbon's agents counter)
 - `hooks/diy-guard.mjs` → `.claude\hooks\diy-guard.mjs`
 - `hooks/diy-reminder.mjs` → `.claude\hooks\diy-reminder.mjs`
 - `hooks/diy-guard.test.mjs` → `.claude\hooks\diy-guard.test.mjs`
@@ -127,6 +128,10 @@ folder in forward slashes:
     "command": "node \"<HOME>/.claude/statusline.js\"",
     "padding": 0,
     "refreshInterval": 3
+  },
+  "subagentStatusLine": {
+    "type": "command",
+    "command": "node \"<HOME>/.claude/subagent-statusline.js\""
   },
   "hooks": {
     "Stop": [
@@ -196,7 +201,7 @@ Stop here and wait.
 ### B1. Recheck, then switch on the ribbon and the hook
 Confirm `claude` now starts by name (`where.exe claude`), then rerun the A3 version checks
 without the PATH refresh. Anything still failing gets fixed now.
-Then merge the `statusLine` and `hooks` settings from A4 into settings.json, parse it with
+Then merge the `statusLine`, `subagentStatusLine` and `hooks` settings from A4 into settings.json, parse it with
 `ConvertFrom-Json` to prove it's valid, and tell them the ribbon and the guard switch on at
 the next restart.
 
