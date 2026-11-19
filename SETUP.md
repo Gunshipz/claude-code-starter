@@ -220,10 +220,21 @@ claude plugin install superpowers@claude-plugins-official
 claude plugin marketplace add anthropics/skills
 claude plugin install document-skills@anthropic-agent-skills
 claude plugin install example-skills@anthropic-agent-skills
+claude plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+claude plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+claude plugin marketplace add Gunshipz/claude-code-skills
+claude plugin install everyday-helpers@gunshipz-skills
+claude plugin marketplace add gunshipz/byline
+claude plugin install byline@byline
 ```
-Check: `claude plugin list` shows all three plugins enabled. Then tell them in plain words,
+Check: `claude plugin list` shows all six plugins enabled: superpowers, document-skills,
+example-skills, ui-ux-pro-max, everyday-helpers and byline. Then tell them in plain words,
 one line each, what these are good for: superpowers, canvas-design, algorithmic-art,
-theme-factory, frontend-design, pdf, xlsx, docx, pptx, skill-creator.
+theme-factory, frontend-design, pdf, xlsx, docx, pptx, skill-creator, ui-ux-pro-max
+(color palettes, font pairings and design styles), printing-on-windows-pc (prints anything
+to the right printer and checks it printed), sourcing-and-ordering (finds and vets things
+to buy, fills the cart, never pays), and byline (writes emails and messages in their own
+voice and checks them before they go out).
 
 ### B4. Craft studio
 This person makes crafts.
@@ -255,7 +266,21 @@ Open https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcd
 Chrome for them. Tell them to click **Add to Chrome**, pin it with the puzzle-piece icon, and
 sign in with the same Claude account they use here.
 
-### B6. About Me
+### B6. Google connectors (their choice)
+Ask whether they'd like you connected to their **Gmail**, **Google Calendar** and **Google
+Drive** (for example, reading the kids' schedules, planning carpools, filing email). If yes,
+open https://claude.ai/customize/connectors in Chrome and tell them, for each one: find it,
+click **Connect**, sign in to Google and click **Allow**. Signing in to Google is theirs.
+These load after the next restart; you'll check them in C1.
+
+### B7. Handy (talk instead of type)
+Install Handy, a free speech-to-text app that types whatever they say:
+`winget install -e --id cjpais.Handy` (same flags as A3). Set it to start when they log in,
+launch it, and tell them its keyboard shortcut. If Windows asks for microphone access, tell
+them to click **Yes**. Have them try it by holding the shortcut and saying "What's in my
+Documents folder?" to you.
+
+### B8. About Me
 Interview them for `About Me.md` in the vault, replacing the placeholder line you wrote in A5. One question at a time, about eight in all,
 and tell them they can skip any: what to call them, who's in their household, what they do
 for work, what a normal week looks like, hobbies, what they'd most like help with, short or
@@ -263,7 +288,7 @@ detailed answers, and anything you should never do. Never ask for a street addre
 passwords or account numbers. Save it, open it in Obsidian (`obsidian://open?path=<url-encoded
 note path>`), and tell them they can edit it any time.
 
-### B7. Second restart
+### B9. Second restart
 Tick the boxes. Tell them, exactly:
 > Almost done. Close this window with the **X**, open **Command Prompt** again, type
 > **claude** and press Enter, then type **continue setup** and press Enter.
@@ -276,7 +301,8 @@ Stop here and wait.
 
 ### C1. Turn on Chrome and check the helpers
 Tell them to type `/chrome` and choose **Enabled by default**, then type `/mcp` and look for
-**playwright** in the list. Ask them what they see.
+**playwright** in the list, plus Gmail, Google Calendar and Google Drive if they connected
+them in B6. Ask them what they see.
 
 ### C2. Check the ribbon and the mode
 Ask them whether they see a line at the bottom showing the model, `ctx`, `5h-limit` and
@@ -284,12 +310,18 @@ Ask them whether they see a line at the bottom showing the model, `ctx`, `5h-lim
 stay blank until after your first reply in a session; that's normal. If the ribbon or auto
 mode is missing, fix it.
 
-### C3. Test the second brain
+### C3. Learn their writing voice (their choice)
+If they connected Gmail, offer to run `/byline:byline setup`: it reads about 4,000 words of
+their own sent email to learn how they write, shows them the profile before saving it, and
+keeps it only on their PC (`~/.byline/`). If they say no, skip it; byline offers again the
+first time they ask you to write a message.
+
+### C4. Test the second brain
 Add a line to `Inbox.md` in the vault saying setup finished today, then
 search the vault for "About Me" and quote one line from it back to them. This proves you can
 write and read the vault.
 
-### C4. Finish
+### C5. Finish
 1. Remove the `SETUP IN PROGRESS` line from the top of `%USERPROFILE%\.claude\CLAUDE.md`.
 2. Mark `setup-progress.md` complete.
 3. Save a short setup report to the vault as `Claude/Setup Report.md`: what's installed,
