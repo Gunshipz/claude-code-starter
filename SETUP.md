@@ -236,30 +236,43 @@ to the right printer and checks it printed), sourcing-and-ordering (finds and ve
 to buy, fills the cart, never pays), and byline (writes emails and messages in their own
 voice and checks them before they go out).
 
-### B4. Craft studio
-This person makes crafts.
-1. `winget install` (same flags as A3): `Inkscape.Inkscape`, `ImageMagick.ImageMagick`, `GIMP.GIMP.3`.
-2. `py -3.13 -m pip install --user pillow opencv-python openpyxl`. For SVG to PNG, use
-   Inkscape's command line (`inkscape file.svg --export-type=png`), not cairosvg, which needs
-   libraries Windows doesn't have.
-3. Real-ESRGAN for enlarging small images for print: download the latest
-   `realesrgan-ncnn-vulkan` Windows zip from https://github.com/xinntao/Real-ESRGAN/releases,
-   unzip it to `%USERPROFILE%\Tools\realesrgan`, and test it on a small image. It uses their
-   NVIDIA graphics card; if the card isn't detected, say so plainly and carry on.
-4. Make `<Documents>\Craft Studio` for design files.
-5. Write a personal skill called **craft-prep** (plugins from B3 load only after a restart, so
-   write it directly: a `SKILL.md` with `name` and `description` frontmatter, then the steps) in
-   `%USERPROFILE%\.claude\skills\craft-prep\SKILL.md`, used whenever they ask for a craft
-   design. It covers:
-   - Sublimation: 300 DPI at final print size, mirrored before printing, colors that suit
-     sublimation ink, and a note to print a plain-paper test first.
-   - HTV and foil: mirrored, solid single-color layers, no gradients, no lines too thin to weed.
-   - Cricut Design Space: clean SVGs with closed paths, welded text, one color per layer,
-     and a check against the current Print Then Cut size limit (look it up, don't guess).
-   - Book covers: cover and spine size from page count and paper thickness, plus bleed.
-   - Always save a PNG preview to `Craft Studio` and open it before the final files.
-   - Save the settings that worked for each project as a note in the vault's `Crafts` folder.
-   Check: show them the skill's first lines and where it's saved.
+### B4. Tools for their hobbies
+Ask one question, as a numbered list they can answer with numbers (more than one is fine):
+"What do you like to make or do on your computer? 1. Crafts with a cutting machine,
+heat press or printer (Cricut, Silhouette, sublimation, vinyl) 2. Photo editing
+3. Design work (invitations, flyers, social posts) 4. None of these right now."
+Install only what fits their answer:
+
+- **Crafts (1):**
+  1. `winget install` (same flags as A3): `Inkscape.Inkscape` (SVG cut files) and
+     `ImageMagick.ImageMagick` (resizing and print prep).
+  2. `py -3.13 -m pip install --user pillow opencv-python`. For SVG to PNG, use Inkscape's
+     command line (`inkscape file.svg --export-type=png`), not cairosvg, which needs
+     libraries Windows doesn't have.
+  3. Make `<Documents>\Craft Studio` for design files.
+  4. Write a personal skill called **craft-prep** (plugins from B3 load only after a restart,
+     so write it directly: a `SKILL.md` with `name` and `description` frontmatter, then the
+     steps) in `%USERPROFILE%\.claude\skills\craft-prep\SKILL.md`, covering only the
+     methods they use. Ask which machine and methods they have, then include the matching parts:
+     - Sublimation: 300 DPI at final print size, mirrored before printing, colors that suit
+       sublimation ink, and a plain-paper test print first.
+     - HTV, iron-on and foil: mirrored, solid single-color layers, no gradients, no lines too
+       thin to weed.
+     - Cutting machine software (Cricut Design Space, Silhouette Studio): clean SVGs with
+       closed paths, welded text, one color per layer, and a check against the machine's
+       current print-then-cut size limit (look it up, don't guess).
+     - Always save a PNG preview to `Craft Studio` and open it before the final files.
+     - Save the settings that worked for each project as a note in the vault's `Crafts` folder.
+     Check: show them the skill's first lines and where it's saved.
+- **Photo editing (2):** `GIMP.GIMP.3`, plus Real-ESRGAN for enlarging small images for
+  print: download the latest `realesrgan-ncnn-vulkan` Windows zip from
+  https://github.com/xinntao/Real-ESRGAN/releases, unzip it to
+  `%USERPROFILE%\Tools\realesrgan`, and test it on a small image. It needs a graphics card
+  that supports Vulkan (most NVIDIA, AMD and recent Intel cards); if it can't find one, say
+  so plainly and skip it.
+- **Design work (3):** nothing extra to install. The canvas-design, theme-factory and
+  ui-ux-pro-max skills from B3 cover it. Make `<Documents>\Designs` for their files.
+- **None (4):** skip this step.
 
 ### B5. Claude in Chrome
 Open https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn in
@@ -330,7 +343,7 @@ write and read the vault.
    their **second brain** (the Obsidian vault: their life and projects, theirs to read and
    edit), the **house rules** (`CLAUDE.md`: how you should work), and your own **memory
    notebook** (notes you keep for yourself about working with them).
-5. Offer three things to try, in their words:
-   - "Design a Hogwarts acceptance letter and envelope for each of my kids, sized for US Letter."
-   - "Make a one-color fox design for an HTV shirt, ready for Cricut Design Space."
-   - "Make a made-up weekly schedule, then plan it to save time."
+5. Offer three things to try, written as sentences they could say to you, based on their
+   About Me note: one for their hobbies, one for their family or home, and one for their
+   work. Make each one specific to them and finishable in a few minutes. If a work idea
+   would involve their employer's data, use made-up example data.
