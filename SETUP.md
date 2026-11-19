@@ -32,22 +32,26 @@ Download them byte for byte (`curl.exe -fsSL <url> -o <path>`, or PowerShell
    in one plain sentence what was blocked and why it's safe, then ask them to press
    **Shift+Tab** until the line under the input box shows the manual / default mode, approve
    the step, and press **Shift+Tab** again until it says **auto mode** before continuing.
-6. **Don't give up on a failure.** Find out why, try a different way, and only stop for
+6. **Waiting on them.** If an install sits waiting for more than a minute, its Windows pop-up
+   may be hidden: tell them to click the flashing shield icon on the taskbar, then **Yes**.
+   If you hit the Pro usage limit, tell them when it resets and that they can type
+   **continue setup** after that; the checklist keeps your place.
+7. **Don't give up on a failure.** Find out why, try a different way, and only stop for
    something only they can do. If one step can't be finished after three different
    attempts, note it in the checklist with what you tried, move on, and include it in the
    final report.
-7. **Fresh PATH in every shell command.** Programs you install won't be on PATH in your own
+8. **Fresh PATH in every shell command.** Programs you install won't be on PATH in your own
    shell until the terminal restarts. In PowerShell, start commands that need a newly
    installed program with:
    `$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')`
    or call the program by its full path.
-8. **Check before you tick.** A step is done only when you've run something that would have
+9. **Check before you tick.** A step is done only when you've run something that would have
    failed if it weren't.
-9. **Which shell.** The PowerShell snippets in this file (`$env:Path`, `[Environment]`,
+10. **Which shell.** The PowerShell snippets in this file (`$env:Path`, `[Environment]`,
    `ConvertFrom-Json`) must run in PowerShell: use your PowerShell tool, or wrap them in
    `powershell.exe -NoProfile -Command "..."` from Bash. Run `claude mcp add` (B2) from
    PowerShell too, because Git Bash rewrites `/c` into a drive path.
-10. **Paths in settings.json** are absolute with forward slashes, for example
+11. **Paths in settings.json** are absolute with forward slashes, for example
    `C:/Users/Name/.claude/statusline.js`. Don't rely on `$HOME` or `%USERPROFILE%` there.
 
 ---
