@@ -276,7 +276,7 @@ stay blank until after your first reply in a session; that's normal. If the ribb
 mode is missing, fix it.
 
 ### C3. Test the second brain
-Save a note called `First Note.md` in the vault's `Inbox` saying setup finished today, then
+Add a line to `Inbox.md` in the vault saying setup finished today, then
 search the vault for "About Me" and quote one line from it back to them. This proves you can
 write and read the vault.
 
